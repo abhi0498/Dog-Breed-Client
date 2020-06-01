@@ -25,7 +25,7 @@
     <section v-if="file" class="section has-text-weight-semibold">
       <img class style="max-height:240px" src alt />
       <div class="hero has-text-justified" style="min-height:5rem">
-        <h1 class="title is-4">Results will be show here:</h1>
+        <h1 class="title is-4">Results will be shown here:</h1>
         <div class>
           <div v-if="res.isDog">
             <p :key="i" v-for="(p,i) in res.pred">
@@ -51,7 +51,7 @@
 
         <button v-if="cap" class="button is-primary" @click="submit1">Submit</button>
       </div>
-      <h1 class="title is-4">Results will be show here:</h1>
+      <h1 class="title is-4">Results will be shown here:</h1>
       <div v-if="res.isDog">
         <p :key="i" v-for="(p,i) in res.pred">
           {{p[0]}}-{{p[1]}}%

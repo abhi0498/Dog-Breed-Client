@@ -7,6 +7,7 @@
       <template slot="end">
         <b-navbar-item href="/image-search">Search</b-navbar-item>
         <b-navbar-item href="/about">About</b-navbar-item>
+        <b-navbar-item href="https://www.adoptapet.com/dog-adoption" target="_blank">Adopt A Puppy</b-navbar-item>
       </template>
     </b-navbar>
     <!-- <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
