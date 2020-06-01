@@ -1,6 +1,7 @@
 <template>
-  <div style="display:flex" class="container">
+  <div class="container">
     <h1 class="title">Image Search</h1>
+    <br />
     <button class="button" :class="{'is-info':file,'is-danger':!file}" @click="toggle">Toggle Camera</button>
     <section class="columns section" v-if="file">
       <div class="file column is-7">
@@ -21,8 +22,36 @@
       <b-button style="height:100%;" class="column button is-primary" @click="submit">Search</b-button>
       <div class="column"></div>
     </section>
-    <section v-if="file" class="section" style="align-self:center">
-      <img style="max-height:240px" src alt />
+    <section v-if="file" class="section has-text-weight-semibold">
+      <img class style="max-height:240px" src alt />
+      <div class="hero has-text-justified" style="min-height:5rem">
+        <h1 class="title is-4">Results will be show here:</h1>
+        <div class>
+          <div v-if="res.isDog">
+            <p :key="i" v-for="(p,i) in res.pred">
+              {{p[0]}}-{{p[1]}}%
+              <a
+                :href="urlify(p[0])"
+                target="_blank"
+              >{{ }}- Learn more about {{p[0]}}s here.</a>
+            </p>
+          </div>
+
+          <p v-else-if="res.pred">Thats not a dog. I think its a {{res.pred}}.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section" v-show="!file">
+      <video style="height:240px;width:320px" id="player" autoplay></video>
+      <canvas v-show="picture" id="canvas" width="320px" height="240px"></canvas>
+      <div>
+        <button @click="recapture" v-show="picture" class="button is-danger">Re-Capture</button>
+        <button @click="cap=true" class="button is-success" id="capture-btn">Capture</button>
+
+        <button v-if="cap" class="button is-primary" @click="submit1">Submit</button>
+      </div>
+      <h1 class="title is-4">Results will be show here:</h1>
       <div v-if="res.isDog">
         <p :key="i" v-for="(p,i) in res.pred">
           {{p[0]}}-{{p[1]}}%
@@ -34,19 +63,6 @@
       </div>
 
       <p v-else-if="res.pred">Thats not a dog. I think its a {{res.pred}}.</p>
-    </section>
-
-    <div class="section" v-show="!file">
-      <video style="height:240px;width:320px" id="player" autoplay></video>
-      <canvas v-show="picture" id="canvas" width="320px" height="240px"></canvas>
-      <div>
-        <button @click="recapture" v-show="picture" class="button is-danger">Re-Capture</button>
-        <button class="button is-success" id="capture-btn">Capture</button>
-
-        <button class="button is-primary" @click="submit1">Submit</button>
-      </div>
-
-      <p :key="i" v-for="(p,i) in res.pred">{{p[0]}}-{{p[1]}}%</p>
     </div>
   </div>
 </template>
@@ -60,6 +76,7 @@ export default {
     picture: "",
     file: false,
     up: false,
+    cap: false,
     res: {}
   }),
 
